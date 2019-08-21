@@ -9,7 +9,7 @@ Java config and XML config Spring Security login and auto logout implementation
 5. apache-tiles-version - 3.0.5
 6. logback.version - 1.2.3
 
-#### This project is mainly designed to use as a template which has following key features.
+#### These projects are mainly designed to use as a starter template which has following key features.
 1. Spring mvc, Spring security with jdbc authentication and auto logout feature which displays timer when session is about to expire also it facilitates user to keep session alive while after session timeout timer is displayed in header. It will avoid losing filled form which will be lost if session expires before form is submitted.
 2. Apaches tiles layout for defining application template and develop application with minimal effort.
 3. Logback for logging.
@@ -19,6 +19,12 @@ Java config and XML config Spring Security login and auto logout implementation
 #### Key feature of this repository
 1. This repository contains two project with same functionality implemented with XML and JAVA configuration. It makes easier to understand and learn by comparing XML and JAVA configuration.
 2. Projects are developed with maven dependency and hence it will be easier to import and Run it.
+3. If you are interested only in autologout functionality in spring security please refer A_OnlyAutologoutByUsingJavaconfig or A_OnlyAutologoutByUsingXmlconfig project for referance.
+
+Or
+
+If you are keen to see mvctiles integration and i18n implementation please refer xmlconfig or javaconfig projects.
+   
 
 Let's have look at application screenshot to understand features.
 ## 1. Locale configurations
@@ -57,7 +63,7 @@ But it is not supported.
 Overhead, it will be custom session management. And may be spring security will not work for such changes.
 
 So we can not avoid session refresh, then how we can intimate browser about session expiry.
-### Approach1. UI(Javascript) logic
+### Approach 1. UI(Javascript) logic
 Until user is alive keep session alive by heart beat(AJAX request), 
 set timer of timeout equal to maximumInactiveInterval
 
@@ -69,7 +75,7 @@ Good idea, But it is one sided check(Browser sided control)
 timeLeft in server timeLeft in browser may have difference over a large time of 30 minutes.(If system goes sleep or network failures for some time or server goes down for some time)
 Need shared object coding such as localStorage to make it working for more than one tab.(Multitab access)
 
-### Approach2. Save lastAccessTime in session attribute and calculate sesionTimeLeft and intimate browser periodically. so browser updates timer even though two tabs are open.
+### Approach 2. Save lastAccessTime in session attribute and calculate sesionTimeLeft and intimate browser periodically. so browser updates timer even though two tabs are open.
 Steps to achieve auto logout functionality
 1. Save lastAccessTime in session attribute
 2. Add two filters before spring security's filter(DelegatingFilterProxy)
@@ -85,4 +91,25 @@ Steps to achieve auto logout functionality
    Here inter tab communication is done through getting updated sessionTimeLeft value and resetting timer in browser.
    
    If you are filling a large form and then if the session is about to expire timer will be displayed and you can send keepSessionAlive request to refresh the session(update lastAccessTime). So in this way you can avoid losing data.
+
+### Now as a formality let me explain how to download and run application.
+1. Download zip file and extract it ;)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/github-download.png)
+2. Import as Existing Maven Projects (After import project structure)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/imported-project.png)
+3. Maven -> Update project (After update project structure)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/updated-project.png)
+4. Run Maven build as clean install
+
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/run-as-maven-build.png)
+
+5. For projects which uses in memory authentication No need to execute DB scripts and change databaseconnection.properties
+   But for projects which uses jdbc authentication
    
+   a. configure databaseconnection.properties
+   
+   b. Execute scripts from resources\mysql folder in project(1st execute tables.sql and later insertDefaults.sql)
+   
+6. Refresh project and clean server and Run server.
+
+Thank you. :)
