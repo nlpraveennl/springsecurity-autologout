@@ -35,13 +35,13 @@
 			min-height:8%;
 			padding-top: 15px;
 			font-variant-caps: petite-caps;
-    	  	font-family: initial;
+	   	  	font-family: initial;
 		}
 		.footer
 		{
 			min-height:6%;
 			background-color: lavender;
-    		color: black;
+	   		color: black;
 		}
 	</style>
 </head>

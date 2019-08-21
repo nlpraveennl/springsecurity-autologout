@@ -3,19 +3,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <style>
-.header-item:hover
-{
-	cursor: pointer;
-}
-.logout-label
-{
-	font-size: x-small;
-}
-.glyphicon
-{
-	 color:white;
-}
+	.header-item:hover
+	{
+		cursor: pointer;
+	}
+	.logout-label
+	{
+		font-size: x-small;
+	}
+	.glyphicon
+	{
+		 color:white;
+	}
 </style>
+
 <div class="col-md-2 header-item"><spring:message code="app.header.projectname.label"/>
 </div>
 <div class="col-md-3 offset-7 user-info-session-control-box">

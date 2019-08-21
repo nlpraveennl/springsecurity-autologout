@@ -16,6 +16,7 @@
 	 color:white;
 }
 </style>
+
 <div class="col-md-2 header-item"><spring:message code="app.header.projectname.label"/>
 </div>
 <div class="col-md-3 offset-7 user-info-session-control-box">

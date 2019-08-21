@@ -59,8 +59,10 @@ Overhead, it will be custom session management. And may be spring security will 
 So we can not avoid session refresh, then how we can intimate browser about session expiry.
 ### Approach1. UI(Javascript) logic
 Until user is alive keep session alive by heart beat(AJAX request), 
-set timer of timeout equal to maximumInactiveInterval 
+set timer of timeout equal to maximumInactiveInterval
+
 a. if user activity(mouse move/click/doubleClick) is detected send heart beat and reset timer.
+
 b. if timer expires kill session (i.e, make logout by location.href = "/logout")
 
 Good idea, But it is one sided check(Browser sided control)
@@ -72,7 +74,7 @@ Steps to achieve auto logout functionality
 1. Save lastAccessTime in session attribute
 2. Add two filters before spring security's filter(DelegatingFilterProxy)
 
-   a. sessionTimeoutCheckFilter - checks lastAccessTime and sends response with sessionTimeLeft.  Filter this request (Stop request flowing further and send response).
+   a. sessionTimeoutCheckFilter - checks lastAccessTime and sends response with sessionTimeLeft.  Filter this request (Stop request flowing further and send response, map filter for only one request /api/sessionCheck).
    
    b. sessionLastAccessTimeUpdateFilter - last access time will be updated for every request except /sessionCheck, /login and 
    
@@ -80,10 +82,7 @@ Steps to achieve auto logout functionality
    
    if sessionTimeLeft becomes 0 or -ve send logout request.
    
-   Here intertab communication is done through getting updated sessionTimeLeft value and resetting timer in browser.
+   Here inter tab communication is done through getting updated sessionTimeLeft value and resetting timer in browser.
    
    If you are filling a large form and then if the session is about to expire timer will be displayed and you can send keepSessionAlive request to refresh the session(update lastAccessTime). So in this way you can avoid losing data.
    
-   
-   
-

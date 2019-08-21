@@ -1,8 +1,8 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page session="true"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,56 +11,61 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.4.1.js" />" ></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.bundle.min.js" />" ></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css" />" >
-	<link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
+	<link rel="stylesheet" href="<c:url value="/resources/css/app.css" />" >
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><tiles:insertAttribute name="title" ignore="true" /></title>
-	<style>
-		html, body 
-		{
-		  height: 100%;
-		  margin: 0;
-		}
-		.wrapper 
-		{
-		  height: 100%;
-		}
-		.content 
-		{
-		  flex: 1;
-		  overflow: auto;
-		  min-height:86%
-		}
-		.header
-		{
-			min-height:8%;
-			padding-top: 15px;
-			font-variant-caps: petite-caps;
-	   	  	font-family: initial;
-		}
-		.footer
-		{
-			min-height:6%;
-			background-color: lavender;
-	   		color: black;
-		}
-	</style>
+	<title>Application configuration</title>
 </head>
 <body>
 	<div class="container-fluid wrapper">
 		<div class="row header">
-			<tiles:insertAttribute name="header" />
+			<div class="col-md-2 header-item"><spring:message code="app.header.projectname.label"/>
+			</div>
+			<div class="col-md-3 offset-7 user-info-session-control-box">
+				<div class="row">
+					<div class="col-md-4 header-item">
+						<span class="badge badge-primary" title="click to keep session alive" id="sessionTimeRemaining" 
+							onclick="ajaxSessionRefresh()" style="display:none;">
+							<i class="badge badge-danger" id="sessionTimeRemainingBadge" style="float:left">30</i>
+							 &nbsp; 
+							 <small>Refresh</small>
+							 <i class="glyphicon glyphicon-refresh"></i>
+						</span>
+					</div>
+					<div class="col-md-4 header-item">
+						<span class="glyphicon glyphicon-user"></span>
+						<span>${loggedInUser.userName}</span>
+					</div>
+					<div class="col-md-4 header-item">
+						<a href="${pageContext.request.contextPath}/logout">
+							<span class="glyphicon glyphicon-off"></span>
+							<span class="logout-label"><spring:message code="app.header.logout.label"/></span>
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="row content">
 			<div class="col-md-2 col-sm-2 col-xs-2 sidebar">
-				<tiles:insertAttribute name="menu" />
+				<div class="menu-item">
+					<a href="${pageContext.request.contextPath}/app/admin/app-config" style="color:white">
+						<spring:message code="app.menu.appconfig.label"/>
+					</a>
+				</div>
+				<div class="menu-item">
+					<a href="${pageContext.request.contextPath}/app/user/dashboard" style="color:white">
+						<spring:message code="app.dashboard.label"/>
+					</a>
+				</div>
 			</div>
 			<div class="col-md-10 col-sm-10 col-xs-10">
-				<tiles:insertAttribute name="body" />
+				<h2 style="font-variant-caps: all-petite-caps;"><spring:message code="app.appconfig.label"/></h2>
 			</div>
 		</div>
 		
 		<div class="row footer">
-			<tiles:insertAttribute name="footer" />
+			<div style="margin: auto;">
+				&copy;Copyright  2019-2020 nlpraveennl@gmail.com
+			</div>
 		</div>
 	</div>
 </body>
