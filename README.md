@@ -48,8 +48,10 @@ My requirement is if user is idle for time equal to maximumInactiveInterval set,
 To implement auto logout functionality key requirement is 
 ### browser should come to know wether session expired in server or not. 
 To identify session has expired or not a AJAX request(sessionCheck req) is required in background, it can get information of session status but problem is, if session is not expired sessionCheck request refreshes the current session(lastAccessTime of HttpSession is set).
+
 For example
-If sesion timeout = 10 Minutes and session check interval is 2 Mintes, And if user is idle for two minutes session check request will be fired and it refreshes session and even though user is idle for any time session will never expire. We can not calculate how much time left for session invalidation.
+
+If sesion timeout = 10 Minutes and session check interval is 2 Minutes, And if user is idle for 2 minutes session check request will be fired and it refreshes session and even though user is idle for any time session will never expire. We can not calculate how much time left for session invalidation.
 
 ### Is there any usual way in spring, spring security to prevent session getting refreshed
 If there is active session for each request it will get refreshes regardless of spring or spring security. If we think about servlet and filters, the answer is when request reaches servlet container if request has active session it will get refreshed without fail. It is tomcat default behavior in other words we can say session's default behavior.
