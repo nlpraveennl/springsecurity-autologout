@@ -21,4 +21,17 @@ Key feature of this repository
 2. Projects are developed with maven dependency and hence it will be easier to import and Run it.
 
 Let's have look at application screenshot to understand features.
-1. Locale configuration
+# 1. Locale configurations
+
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/login-screen.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/locale_en.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/locale_hi_IN.png)
+
+# 2. Theme configurations
+
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/themes.png)
+
+# 3. Auto logout configurations
+
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/session-left-timer-display.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/session-expired.png)
