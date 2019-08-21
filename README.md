@@ -71,10 +71,19 @@ Need shared object coding such as localStorage to make it working for more than 
 Steps to achieve auto logout functionality
 1. Save lastAccessTime in session attribute
 2. Add two filters before spring security's filter(DelegatingFilterProxy)
-   a. sessionTimeoutCheckFilter - checks lastAccessTime and sends response with sessionTimeLeft.  Filter this request (Stop request flowing further and send response). 
+
+   a. sessionTimeoutCheckFilter - checks lastAccessTime and sends response with sessionTimeLeft.  Filter this request (Stop request flowing further and send response).
+   
    b. sessionLastAccessTimeUpdateFilter - last access time will be updated for every request except /sessionCheck, /login and 
+   
    if sessionTimeLeft becomes minimumValue show timer.
+   
    if sessionTimeLeft becomes 0 or -ve send logout request.
+   
    Here intertab communication is done through getting updated sessionTimeLeft value and resetting timer in browser.
+   
+   If you are filling a large form and then if the session is about to expire timer will be displayed and you can send keepSessionAlive request to refresh the session(update lastAccessTime). So in this way you can avoid losing data.
+   
+   
    
 
