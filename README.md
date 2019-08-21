@@ -23,18 +23,18 @@ Java config and XML config Spring Security login and auto logout implementation
 Let's have look at application screenshot to understand features.
 ## 1. Locale configurations
 
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/login-screen.png)
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/locale_en.png)
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/locale_hi_IN.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/login-screen.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/locale_en.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/locale_hi_IN.png)
 
 ## 2. Theme configurations
 
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/themes.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/themes.png)
 
 ## 3. Auto logout configurations with session left timer
 
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/session-left-timer-display.png)
-![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/screenshots/session-expired.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/session-left-timer-display.png)
+![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/session-expired.png)
 
 # Autologout functionality explained
 Either it may be servlet or spring security it can only invalidate session and it can redirect only after arriving next request.
