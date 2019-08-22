@@ -95,23 +95,36 @@ Steps to achieve auto logout functionality
    If you are filling a large form and then if the session is about to expire timer will be displayed and you can send keepSessionAlive request to refresh the session(update lastAccessTime). So in this way you can avoid losing data.
 
 ### Now as a formality let me explain how to download and run application.
-1. Download zip file and extract it ;)
+1. <b>Download zip file and extract it ;)</b>
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/github-download.png)
-2. Import as Existing Maven Projects (After import project structure)
+2. <b>Import as Existing Maven Projects (After import project structure)</b>
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/imported-project.png)
-3. Maven -> Update project (After update project structure)
+3. <b>Maven -> Update project (After update project structure)</b>
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/updated-project.png)
-4. Run Maven build as clean install
+4. <b>Run Maven build as clean install</b>
 
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/run-as-maven-build.png)
 
-5. For projects which uses in memory authentication No need to execute DB scripts and change databaseconnection.properties
+5. #### Configuration
+   Configuration for Project <b>A_OnlyAutologoutByUsingJavaconfig</b> and <b>A_OnlyAutologoutByUsingXmlconfig</b>
+   
+   For projects which uses in memory authentication nod database connection is required.
+   
+   Configuration for Project <b>javaconfig</b> and <b>xmlconfig</b>
+   
    But for projects which uses jdbc authentication
    
-   a. configure databaseconnection.properties
+   a. configure databaseconnection.properties in resources folder
    
    b. Execute scripts from resources\mysql folder in project(1st execute tables.sql and later insertDefaults.sql)
    
-6. Refresh project and clean server and Run server.
+6. <b>Refresh project and clean server and Run server</b>
+
+7. <b>Login credentials</b>
+
+   Username : <b>praveen</b>
+   
+   Password : <b>praveen@123#</b>
+   
 
 Thank you. :)
