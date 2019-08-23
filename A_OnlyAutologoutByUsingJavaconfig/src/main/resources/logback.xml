@@ -34,7 +34,7 @@
 		<appender-ref ref="STDOUT" />
 	</root>
 	
-	<logger name="org.springframework" level="INFO">
+	<logger name="org.springframework" level="TRACE">
 		<appender-ref ref="STDOUT" />
 	</logger>
 </configuration>
