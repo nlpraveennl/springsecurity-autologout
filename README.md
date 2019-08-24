@@ -42,45 +42,50 @@ Let's have look at application screenshot to understand features.
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/session-left-timer-display.png)
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/session-expired.png)
 
-# Autologout functionality explained
-Either it may be servlet or spring security it can only invalidate session and it can redirect only after arriving next request.
-My requirement is if user is idle for time equal to maximumInactiveInterval set, without user intervention page should redirect to login page.
-To implement auto logout functionality key requirement is 
-### browser should come to know wether session expired in server or not. 
-To identify session has expired or not a AJAX request(sessionCheck req) is required in background, it can get information of session status but problem is, if session is not expired sessionCheck request refreshes the current session(lastAccessTime of HttpSession is set).
+<b>The below answer is for people who is searching for solution if there  Requirement is</b><br>
+1. Page should redirect to login page if that page has not made any request to server from X minutes. Logout should happen without any user intervention.<br>
+2. Application should display timer when it is near to expire and gives provision to refresh or keep session alive. The screen shot which gives rough idea and is given below.<br>
 
-For example
+[![enter image description here][1]][1]
 
-If sesion timeout = 10 Minutes and session check interval is 2 Minutes, And if user is idle for 2 minutes session check request will be fired and it refreshes session and even though user is idle for any time session will never expire. We can not calculate how much time left for session invalidation.
+# Autologout problem explained
 
-### Is there any usual way in spring, spring security to prevent session getting refreshed
-If there is active session for each request it will get refreshes regardless of spring or spring security. If we think about servlet and filters, the answer is when request reaches servlet container if request has active session it will get refreshed without fail. It is tomcat default behavior in other words we can say session's default behavior.
-So, we can't have page or url which avoids session refresh.
+Either it may be servlet or spring security or servlet it can only invalidate session and it can redirect to login page only after arriving next request.<br>
+My requirement is if user is idle for time equal to ```maximumInactiveInterval ``` set, without user intervention page should redirect to login page.<br><br>
+To implement auto logout functionality key requirement is<br>
+<b>browser should come to know whether session expired in server or not</b><br>
 
-### Can i modify the lastAccessTime value of HttpSession object?
-No. If it is possible to set lastAccessTime, for sessionCheck request we can avoid lastAccessTime being modified and can be set to its previous value. Which may mean session is not refreshed for sessionCheck request.
-But it is not supported.
+To identify session has expired or not, a AJAX request(session check request) is required in background, it can get information of session status but problem is, if session is not expired sessionCheck request refreshes the current session. Because we need to check session active or not by
+```
+if(request.getSession(false) == null)
+...
+```
+But the moment  ``` request.getSession(false) ``` 
+is executed session will get refreshed and lastAccessTime of HttpSession will be updated.<br>
 
-### May i delete old cookie and set a new one.
-Overhead, it will be custom session management. And may be spring security will not work for such changes.
+In General, in a servlet container, if there is a active session, the moment ``` request.getSession(false) ``` is executed then session will get refreshed regardless of spring or spring security or even in servlet and filters.
+<b>So, we can't have page or url which avoids session refresh and tell us wheter session is expired or not</b>.
 
-So we can not avoid session refresh, then how we can intimate browser about session expiry.
-### Approach 1. UI(Javascript) logic
-Until user is alive keep session alive by heart beat(AJAX request), 
-set timer of timeout equal to maximumInactiveInterval
+<b>Atlest, can i get ```lastAccessTime```</b><br>
+To get lastAccessTime
+```
+HttpSession session = req.getSession(false);
+if(session != null)
+{
+	session.getLastAccessedTime();
+}
+```
+Again this also refreshes session.
 
-a. if user activity(mouse move/click/doubleClick) is detected send heart beat and reset timer.
+<b> So how browser can get sessionTimeLeft value periodically?</b><br>
+<br>
+<p>Save your own lastAccessTime in session, This should be updated only for application requests not for sessionValidityCheck request</p>
 
-b. if timer expires kill session (i.e, make logout by location.href = "/logout")
-
-Good idea, But it is one sided check(Browser sided control)
-timeLeft in server timeLeft in browser may have difference over a large time of 30 minutes.(If system goes sleep or network failures for some time or server goes down for some time)
-Need shared object coding such as localStorage to make it working for more than one tab.(Multitab access)
-
-### Approach 2. Save lastAccessTime in session attribute and calculate sesionTimeLeft and intimate browser periodically. so browser updates timer even though two tabs are open.
 Steps to achieve auto logout functionality
-1. Save lastAccessTime in session attribute
-2. Add two filters before spring security's filter(DelegatingFilterProxy)
+
+1. Save ```lastAccessTime``` in session attribute
+
+2. Add two filters before spring security's filter```(DelegatingFilterProxy)```
 
    a. sessionTimeoutCheckFilter - checks lastAccessTime and sends response with sessionTimeLeft.  Filter this request (Stop request flowing further and send response, map filter for only one request /api/sessionCheck).
    
@@ -93,7 +98,6 @@ Steps to achieve auto logout functionality
    Here inter tab communication is done through getting updated sessionTimeLeft value and resetting timer in browser.
    
    If you are filling a large form and then if the session is about to expire timer will be displayed and you can send keepSessionAlive request to refresh the session(update lastAccessTime). So in this way you can avoid losing data.
-
 ### Now as a formality let me explain how to download and run application.
 1. <b>Download zip file and extract it ;)</b>
 ![loginscreen](https://github.com/nlpraveennl/springsecurity-autologout/blob/master/z_screenshots/github-download.png)
